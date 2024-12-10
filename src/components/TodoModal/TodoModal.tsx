@@ -9,17 +9,22 @@ type Props = {
   selectedUserId: number | null;
   onClose: () => void;
   selectedTodo: Todo | null;
-}
+};
 
-export const TodoModal: React.FC<Props> = ({ active, selectedUserId, onClose, selectedTodo }) => {
-  const [loading, setLoading] = useState(true)
+export const TodoModal: React.FC<Props> = ({
+  active,
+  selectedUserId,
+  onClose,
+  selectedTodo,
+}) => {
+  const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     if (selectedUserId !== null) {
       setLoading(true);
       getUser(selectedUserId)
-        .then((data) => setUser(data))
+        .then(data => setUser(data))
         .finally(() => setLoading(false));
     }
   }, [selectedUserId]);
@@ -29,7 +34,7 @@ export const TodoModal: React.FC<Props> = ({ active, selectedUserId, onClose, se
   }
 
   return (
-    <div className={active ? "modal is-active" : "modal"} data-cy="modal">
+    <div className={active ? 'modal is-active' : 'modal'} data-cy="modal">
       <div className="modal-background" />
 
       {loading ? (
@@ -45,7 +50,12 @@ export const TodoModal: React.FC<Props> = ({ active, selectedUserId, onClose, se
             </div>
 
             {/* eslint-disable-next-line jsx-a11y/control-has-associated-label */}
-            <button type="button" className="delete" data-cy="modal-close" onClick={onClose} />
+            <button
+              type="button"
+              className="delete"
+              data-cy="modal-close"
+              onClick={onClose}
+            />
           </header>
 
           <div className="modal-card-body">
@@ -55,8 +65,11 @@ export const TodoModal: React.FC<Props> = ({ active, selectedUserId, onClose, se
 
             <p className="block" data-cy="modal-user">
               {/* <strong className="has-text-success">Done</strong> */}
-              {selectedTodo?.completed ? <strong className="has-text-success">Done</strong> : <strong className="has-text-danger">Planned</strong>}
-
+              {selectedTodo?.completed ? (
+                <strong className="has-text-success">Done</strong>
+              ) : (
+                <strong className="has-text-danger">Planned</strong>
+              )}
 
               {' by '}
 
